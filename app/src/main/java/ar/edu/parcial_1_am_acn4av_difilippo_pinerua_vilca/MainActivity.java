@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         View appName = findViewById(R.id.app_name);
         View appDescription = findViewById(R.id.app_description);
 
-        // Entrada del logo
         logo.setAlpha(0f);
         logo.setTranslationY(-40f);
         logo.animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(100)
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         appDescription.setTranslationY(30f);
         appDescription.animate().alpha(1f).translationY(0f).setDuration(500).setStartDelay(400).start();
 
-        // Navegación automática después de 2 segundos
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {

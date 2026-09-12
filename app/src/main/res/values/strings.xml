@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Patitas felices</string>
+    <string name="app_name">Patitas Felices</string>
     <string name="logo_description">Logo de Patitas Felices</string>
-    <string name="app_description"> Encontrá a tu nuevo compañero. </string>
-    <string name="ver_mascotas">Ver mascotas</string>
-    <string name="titulo_mascotas">Adopta una mascota</string>
+    <string name="app_description">Encontrá a tu nuevo compañero.</string>
+    <string name="title_adopt">Adopta una mascota</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_dogs">Perros</string>
+    <string name="filter_cats">Gatos</string>
+    <string name="status_available">Disponible</string>
+    <string name="status_adopted">Adoptado</string>
+    <string name="btn_adopt">Adoptar</string>
 </resources>
