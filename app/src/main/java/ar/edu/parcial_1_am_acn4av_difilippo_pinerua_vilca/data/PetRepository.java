@@ -25,11 +25,82 @@ public class PetRepository {
     private void initDummyData() {
         int defaultImg = R.mipmap.ic_launcher;
 
-        petList.add(new Pet(1, "Max", "Golden Retriever", "2 years", "Dog", "Very friendly and loves to play fetch.", false, defaultImg));
-        petList.add(new Pet(2, "Luna", "Siamese", "1 year", "Cat", "Quiet and loves to sleep in the sun.", false, defaultImg));
-        petList.add(new Pet(3, "Rocky", "Bulldog", "3 years", "Dog", "Strong but very gentle with kids.", true, defaultImg));
-        petList.add(new Pet(4, "Bella", "Persian", "4 years", "Cat", "Requires daily grooming, very affectionate.", false, defaultImg));
-        petList.add(new Pet(5, "Charlie", "Beagle", "6 months", "Dog", "High energy pup, needs training.", false, defaultImg));
+        petList.add(new Pet(
+                1,
+                "Max",
+                "Golden Retriever",
+                "5 meses",
+                "Perro",
+                "Muy amigable y juguetón. Le encanta correr y jugar.",
+                false,
+                R.drawable.max
+        ));
+
+        petList.add(new Pet(
+                2,
+                "Daphne",
+                "Sin raza",
+                "5 años",
+                "Gato",
+                "Tranquila y cariñosa. Le encanta dormir al sol.",
+                false,
+                R.drawable.daphne
+        ));
+
+        petList.add(new Pet(
+                3,
+                "Rocky",
+                "Bulldog",
+                "3 años",
+                "Perro",
+                "Es fuerte pero muy cariñoso y se lleva muy bien con los niños.",
+                true,
+                R.drawable.rocky
+        ));
+
+        petList.add(new Pet(
+                4,
+                "Paris",
+                "Angora turco",
+                "4 meses",
+                "Gato",
+                "Muy cariñosa y juguetona. Necesita cuidados frecuentes de su pelaje.",
+                false,
+                R.drawable.paris
+        ));
+
+        petList.add(new Pet(
+                5,
+                "Charlie",
+                "Sin raza",
+                "2 meses",
+                "Perro",
+                "Muy activo y juguetón.",
+                false,
+                R.drawable.charlie
+        ));
+
+        petList.add(new Pet(
+                6,
+                "Mora",
+                "Sin raza",
+                "2 años",
+                "Gato",
+                "Muy tranquila y cariñosa. Le encanta recibir mimos y dormir en lugares calentitos.",
+                false,
+                R.drawable.mora
+        ));
+
+        petList.add(new Pet(
+                7,
+                "Toby",
+                "Sin raza",
+                "1 año",
+                "Perro",
+                "Muy juguetón y cariñoso. Le encanta salir a pasear y jugar con otros perros.",
+                false,
+                R.drawable.toby
+        ));
     }
 
     public List<Pet> getAllPets() {
