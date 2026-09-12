@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 keepPulsing = false;
-                Intent intent = new Intent(MainActivity.this, MascotasActivity.class);
+                Intent intent = new Intent(MainActivity.this, PetListActivity.class);
                 startActivity(intent);
                 finish();
             }
