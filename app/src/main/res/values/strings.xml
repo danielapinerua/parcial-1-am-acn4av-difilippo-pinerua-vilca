@@ -3,4 +3,5 @@
     <string name="logo_description">Logo de Patitas Felices</string>
     <string name="app_description"> Encontrá a tu nuevo compañero. </string>
     <string name="ver_mascotas">Ver mascotas</string>
+    <string name="titulo_mascotas">Adopta una mascota</string>
 </resources>
