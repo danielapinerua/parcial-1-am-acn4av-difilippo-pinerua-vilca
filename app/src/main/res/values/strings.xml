@@ -9,4 +9,5 @@
     <string name="status_available">Disponible</string>
     <string name="status_adopted">Adoptado</string>
     <string name="btn_adopt">Adoptar</string>
+    <string name="pet_image_description">Imagen de la mascota</string>
 </resources>

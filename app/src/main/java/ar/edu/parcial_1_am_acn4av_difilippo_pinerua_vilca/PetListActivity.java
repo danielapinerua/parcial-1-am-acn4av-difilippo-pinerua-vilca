@@ -1,10 +1,10 @@
 package ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -122,8 +121,12 @@ public class PetListActivity extends AppCompatActivity {
             statusText.setLayoutParams(statusParams);
             
             card.addView(statusText);
-            
-            card.setOnClickListener(v -> Toast.makeText(this, "Clicked on: " + pet.getName(), Toast.LENGTH_SHORT).show());
+
+            card.setOnClickListener(v -> {
+                Intent intent = new Intent(PetListActivity.this, PetDetailActivity.class);
+                intent.putExtra("pet_id", pet.getId());
+                startActivity(intent);
+            });
 
             layoutPetContainer.addView(card);
         }
