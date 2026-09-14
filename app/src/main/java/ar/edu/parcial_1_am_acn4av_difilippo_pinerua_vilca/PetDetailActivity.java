@@ -35,6 +35,7 @@ public class PetDetailActivity extends AppCompatActivity {
         TextView petDescription = findViewById(R.id.pet_description);
         TextView petStatus = findViewById(R.id.pet_status);
         Button btnAdopt = findViewById(R.id.btn_adopt);
+        Button btnBack = findViewById(R.id.btn_back);
 
         petImage.setImageResource(pet.getImageResId());
         petName.setText(pet.getName());
@@ -57,6 +58,11 @@ public class PetDetailActivity extends AppCompatActivity {
             startActivity(confirmIntent);
         });
 
+        btnBack.setOnClickListener(v -> {
+
+            finish();
+
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
