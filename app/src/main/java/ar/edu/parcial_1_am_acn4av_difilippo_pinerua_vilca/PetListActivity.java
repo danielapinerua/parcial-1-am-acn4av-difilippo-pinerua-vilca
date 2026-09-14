@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.List;
 
+import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.constants.PetType;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.data.PetRepository;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.models.Pet;
 
@@ -53,8 +54,8 @@ public class PetListActivity extends AppCompatActivity {
         Button btnCats = findViewById(R.id.btn_filter_cats);
 
         btnAll.setOnClickListener(v -> renderPets(petRepository.getAllPets()));
-        btnDogs.setOnClickListener(v -> renderPets(petRepository.getPetsByType("Dog")));
-        btnCats.setOnClickListener(v -> renderPets(petRepository.getPetsByType("Cat")));
+        btnDogs.setOnClickListener(v -> renderPets(petRepository.getPetsByType(PetType.DOG.type)));
+        btnCats.setOnClickListener(v -> renderPets(petRepository.getPetsByType(PetType.CAT.type)));
     }
 
     private void renderPets(List<Pet> pets) {

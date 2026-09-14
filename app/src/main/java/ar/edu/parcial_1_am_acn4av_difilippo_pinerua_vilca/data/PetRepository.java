@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.R;
+import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.constants.PetType;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.models.Pet;
 
 public class PetRepository {
@@ -30,7 +31,7 @@ public class PetRepository {
                 "Max",
                 "Golden Retriever",
                 "5 meses",
-                "Perro",
+                PetType.DOG.type,
                 "Muy amigable y juguetón. Le encanta correr y jugar.",
                 false,
                 R.drawable.max
@@ -41,7 +42,7 @@ public class PetRepository {
                 "Daphne",
                 "Sin raza",
                 "5 años",
-                "Gato",
+                PetType.CAT.type,
                 "Tranquila y cariñosa. Le encanta dormir al sol.",
                 false,
                 R.drawable.daphne
@@ -52,7 +53,7 @@ public class PetRepository {
                 "Rocky",
                 "Bulldog",
                 "3 años",
-                "Perro",
+                PetType.DOG.type,
                 "Es fuerte pero muy cariñoso y se lleva muy bien con los niños.",
                 true,
                 R.drawable.rocky
@@ -63,7 +64,7 @@ public class PetRepository {
                 "Paris",
                 "Angora turco",
                 "4 meses",
-                "Gato",
+                PetType.CAT.type,
                 "Muy cariñosa y juguetona. Necesita cuidados frecuentes de su pelaje.",
                 false,
                 R.drawable.paris
@@ -74,7 +75,7 @@ public class PetRepository {
                 "Charlie",
                 "Sin raza",
                 "2 meses",
-                "Perro",
+                PetType.DOG.type,
                 "Muy activo y juguetón.",
                 false,
                 R.drawable.charlie
@@ -85,7 +86,7 @@ public class PetRepository {
                 "Mora",
                 "Sin raza",
                 "2 años",
-                "Gato",
+                PetType.CAT.type,
                 "Muy tranquila y cariñosa. Le encanta recibir mimos y dormir en lugares calentitos.",
                 false,
                 R.drawable.mora
@@ -96,7 +97,7 @@ public class PetRepository {
                 "Toby",
                 "Sin raza",
                 "1 año",
-                "Perro",
+                PetType.DOG.type,
                 "Muy juguetón y cariñoso. Le encanta salir a pasear y jugar con otros perros.",
                 false,
                 R.drawable.toby
