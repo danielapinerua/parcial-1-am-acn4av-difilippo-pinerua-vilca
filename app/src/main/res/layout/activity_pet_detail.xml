@@ -10,21 +10,28 @@
     android:padding="@dimen/padding_medium"
     tools:context=".PetDetailActivity">
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="94dp"
+        android:layout_height="60dp"
+        android:background="@color/background"
+        android:backgroundTint="@color/background"
+        android:padding="10dp"
+        android:text="@string/btn_back"
+        android:textColor="@color/accent"
+        app:backgroundTint="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_back" />
 
         <ImageView
             android:id="@+id/pet_image"
