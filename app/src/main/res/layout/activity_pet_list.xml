@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/windowBackground"
+    android:background="@color/background"
     tools:context=".PetListActivity">
 
     <TextView
@@ -13,41 +14,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_adopt"
-        android:textSize="@dimen/text_size_title"
-        android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/text_primary"
         android:gravity="center"
-        android:padding="@dimen/padding_medium" />
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingHorizontal="@dimen/padding_medium"
-        android:paddingBottom="@dimen/padding_small">
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_filter_all"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginEnd="8dp"
+            android:textSize="13sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="21dp"
             android:text="@string/filter_all" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_filter_dogs"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginEnd="8dp"
+            android:textSize="13sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="21dp"
             android:text="@string/filter_dogs" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_filter_cats"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:layout_weight="1"
+            android:textSize="13sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="21dp"
             android:text="@string/filter_cats" />
     </LinearLayout>
 
@@ -55,14 +69,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="@dimen/padding_medium">
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp">
 
         <LinearLayout
             android:id="@+id/layout_pet_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_medium" />
+            android:paddingBottom="16dp" />
     </ScrollView>
 
 </LinearLayout>

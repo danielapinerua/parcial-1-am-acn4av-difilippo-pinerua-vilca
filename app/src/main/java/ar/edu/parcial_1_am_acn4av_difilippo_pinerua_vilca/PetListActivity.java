@@ -3,19 +3,21 @@ package ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -28,17 +30,21 @@ public class PetListActivity extends AppCompatActivity {
     private LinearLayout layoutPetContainer;
     private PetRepository petRepository;
 
+    private MaterialButton btnAll, btnDogs, btnCats;
+    private static final int COLOR_ACCENT = Color.parseColor("#7C5CFC");
+    private static final int COLOR_INACTIVE_BG = Color.parseColor("#F0EEFF");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pet_list);
-        
+
         petRepository = PetRepository.getInstance();
         layoutPetContainer = findViewById(R.id.layout_pet_container);
 
         setupFilters();
-        
+        selectFilter(btnAll);
         renderPets(petRepository.getAllPets());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -49,40 +55,70 @@ public class PetListActivity extends AppCompatActivity {
     }
 
     private void setupFilters() {
-        Button btnAll = findViewById(R.id.btn_filter_all);
-        Button btnDogs = findViewById(R.id.btn_filter_dogs);
-        Button btnCats = findViewById(R.id.btn_filter_cats);
+        btnAll = findViewById(R.id.btn_filter_all);
+        btnDogs = findViewById(R.id.btn_filter_dogs);
+        btnCats = findViewById(R.id.btn_filter_cats);
 
-        btnAll.setOnClickListener(v -> renderPets(petRepository.getAllPets()));
-        btnDogs.setOnClickListener(v -> renderPets(petRepository.getPetsByType(PetType.DOG.type)));
-        btnCats.setOnClickListener(v -> renderPets(petRepository.getPetsByType(PetType.CAT.type)));
+        btnAll.setOnClickListener(v -> {
+            selectFilter(btnAll);
+            renderPets(petRepository.getAllPets());
+        });
+        btnDogs.setOnClickListener(v -> {
+            selectFilter(btnDogs);
+            renderPets(petRepository.getPetsByType(PetType.DOG.type));
+        });
+        btnCats.setOnClickListener(v -> {
+            selectFilter(btnCats);
+            renderPets(petRepository.getPetsByType(PetType.CAT.type));
+        });
+    }
+
+    private void selectFilter(MaterialButton selected) {
+        for (MaterialButton btn : new MaterialButton[]{btnAll, btnDogs, btnCats}) {
+            boolean isSelected = btn == selected;
+            btn.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                    isSelected ? COLOR_ACCENT : COLOR_INACTIVE_BG));
+            btn.setTextColor(isSelected ? Color.WHITE : COLOR_ACCENT);
+        }
     }
 
     private void renderPets(List<Pet> pets) {
         layoutPetContainer.removeAllViews();
 
         for (Pet pet : pets) {
-            LinearLayout card = new LinearLayout(this);
-            card.setOrientation(LinearLayout.HORIZONTAL);
-            
+            MaterialCardView card = new MaterialCardView(this);
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            cardParams.setMargins(0, 0, 0, dpToPx(16));
+            cardParams.setMargins(0, 0, 0, dpToPx(14));
             card.setLayoutParams(cardParams);
-            
-            card.setBackgroundColor(Color.WHITE);
-            card.setElevation(dpToPx(4));
-            card.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
-            
+            card.setRadius(dpToPx(18));
+            card.setCardElevation(dpToPx(1));
+            card.setStrokeWidth(dpToPx(1));
+            card.setStrokeColor(Color.parseColor("#EFEFEF"));
+            card.setCardBackgroundColor(Color.WHITE);
+            card.setRippleColor(android.content.res.ColorStateList.valueOf(COLOR_INACTIVE_BG));
+            card.setClickable(true);
+            card.setFocusable(true);
+
+            LinearLayout content = new LinearLayout(this);
+            content.setOrientation(LinearLayout.HORIZONTAL);
+            content.setGravity(Gravity.CENTER_VERTICAL);
+            content.setPadding(dpToPx(14), dpToPx(14), dpToPx(14), dpToPx(14));
+
             ImageView image = new ImageView(this);
-            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(dpToPx(80), dpToPx(80));
+            LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(dpToPx(76), dpToPx(76));
             image.setLayoutParams(imgParams);
             image.setImageResource(pet.getImageResId());
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            card.addView(image);
-            
+
+            GradientDrawable imgBg = new GradientDrawable();
+            imgBg.setCornerRadius(dpToPx(38)); // circular
+            image.setClipToOutline(true);
+            image.setBackground(imgBg);
+            content.addView(image);
+
             LinearLayout textContainer = new LinearLayout(this);
             textContainer.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams textContainerParams = new LinearLayout.LayoutParams(
@@ -91,37 +127,44 @@ public class PetListActivity extends AppCompatActivity {
             textContainerParams.setMargins(dpToPx(16), 0, 0, 0);
             textContainer.setLayoutParams(textContainerParams);
             textContainer.setGravity(Gravity.CENTER_VERTICAL);
-            
+
             TextView nameText = new TextView(this);
             nameText.setText(pet.getName());
-            nameText.setTextSize(18f);
+            nameText.setTextSize(17f);
             nameText.setTypeface(null, Typeface.BOLD);
-            nameText.setTextColor(Color.BLACK);
+            nameText.setTextColor(Color.parseColor("#1A1A1A"));
             textContainer.addView(nameText);
-            
+
             TextView breedText = new TextView(this);
             breedText.setText(pet.getBreed());
-            breedText.setTextSize(14f);
-            breedText.setTextColor(Color.DKGRAY);
+            breedText.setTextSize(13f);
+            breedText.setTextColor(Color.parseColor("#9A9A9A"));
+            LinearLayout.LayoutParams breedParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            breedParams.topMargin = dpToPx(2);
+            breedText.setLayoutParams(breedParams);
             textContainer.addView(breedText);
-            
-            card.addView(textContainer);
-            
+
             TextView statusText = new TextView(this);
             statusText.setText(pet.isAdopted() ? getString(R.string.status_adopted) : getString(R.string.status_available));
-            statusText.setTextSize(12f);
+            statusText.setTextSize(11f);
             statusText.setTypeface(null, Typeface.BOLD);
-            statusText.setTextColor(pet.isAdopted() ? Color.RED : Color.parseColor("#388E3C"));
-            statusText.setPadding(dpToPx(8), dpToPx(4), dpToPx(8), dpToPx(4));
-            
+            statusText.setTextColor(pet.isAdopted() ? Color.parseColor("#B0B0B0") : Color.parseColor("#388E3C"));
+            statusText.setPadding(dpToPx(10), dpToPx(4), dpToPx(10), dpToPx(4));
+
+            GradientDrawable statusBg = new GradientDrawable();
+            statusBg.setCornerRadius(dpToPx(20));
+            statusBg.setColor(pet.isAdopted() ? Color.parseColor("#F2F2F2") : Color.parseColor("#E7F5EA"));
+            statusText.setBackground(statusBg);
+
             LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            statusParams.gravity = Gravity.CENTER_VERTICAL;
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            statusParams.topMargin = dpToPx(6);
             statusText.setLayoutParams(statusParams);
-            
-            card.addView(statusText);
+            textContainer.addView(statusText);
+
+            content.addView(textContainer);
+            card.addView(content);
 
             card.setOnClickListener(v -> {
                 Intent intent = new Intent(PetListActivity.this, PetDetailActivity.class);
