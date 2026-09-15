@@ -19,10 +19,10 @@
 
         <ImageView
             android:id="@+id/confirmation_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/confirmation"
-            android:contentDescription="@string/confirmation_image_description" />
+            android:layout_width="411dp"
+            android:layout_height="195dp"
+            android:contentDescription="@string/confirmation_image_description"
+            android:src="@drawable/confirmation" />
 
         <TextView
             android:id="@+id/confirmation_title"
@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/confirmation_title"
+            android:textColor="@color/text_primary"
             android:textSize="@dimen/text_size_title"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/confirmation_message"
