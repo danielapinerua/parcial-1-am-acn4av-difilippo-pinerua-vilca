@@ -7,4 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".ConfirmationActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/confirmation_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/confirmation"
+            android:contentDescription="@string/confirmation_image_description" />
+
+        <TextView
+            android:id="@+id/confirmation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/confirmation_title"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/confirmation_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@string/confirmation_message"
+            android:textSize="@dimen/text_size_body"
+            android:textColor="@color/text_primary" />
+
+        <Button
+            android:id="@+id/btn_back_to_pets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/btn_back_to_pets" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

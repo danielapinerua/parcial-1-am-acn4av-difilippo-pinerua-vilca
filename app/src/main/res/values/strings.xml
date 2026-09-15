@@ -11,4 +11,8 @@
     <string name="btn_adopt">Adoptar</string>
     <string name="pet_image_description">Imagen de la mascota</string>
     <string name="btn_back">Volver</string>
+    <string name="confirmation_title">¡Adopción realizada!</string>
+    <string name="confirmation_message">¡Felicitaciones! Tu adopción fue realizada con éxito. Gracias por darle un hogar a una mascota. Pronto nos pondremos en contacto con usted para coordinar la entrega.</string>
+    <string name="btn_back_to_pets">Volver al listado</string>
+    <string name="confirmation_image_description">Imagen de confirmación</string>
 </resources>
