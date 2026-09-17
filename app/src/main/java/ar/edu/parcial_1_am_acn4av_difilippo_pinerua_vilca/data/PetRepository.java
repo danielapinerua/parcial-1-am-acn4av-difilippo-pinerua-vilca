@@ -55,7 +55,7 @@ public class PetRepository {
                 "3 años",
                 PetType.DOG.type,
                 "Es fuerte pero muy cariñoso y se lleva muy bien con los niños.",
-                false,
+                true,
                 R.drawable.rocky
         ));
 

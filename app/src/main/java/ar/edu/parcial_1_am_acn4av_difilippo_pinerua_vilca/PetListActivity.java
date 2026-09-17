@@ -119,6 +119,11 @@ public class PetListActivity extends AppCompatActivity {
         layoutPetContainer.removeAllViews();
 
         for (Pet pet : pets) {
+
+            if (pet.isAdopted()) {
+                continue;
+            }
+
             MaterialCardView card = new MaterialCardView(this);
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
