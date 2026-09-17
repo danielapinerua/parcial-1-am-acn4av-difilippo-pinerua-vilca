@@ -19,18 +19,17 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.constants.PetType;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.data.PetRepository;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.models.Pet;
 
-public class PetListActivity extends AppCompatActivity {
+public class AdoptionsActivity extends AppCompatActivity {
 
     private LinearLayout layoutPetContainer;
     private PetRepository petRepository;
 
-    private MaterialButton btnAll, btnDogs, btnCats;
     private static final int COLOR_ACCENT = Color.parseColor("#7C5CFC");
     private static final int COLOR_INACTIVE_BG = Color.parseColor("#F0EEFF");
 
@@ -38,15 +37,12 @@ public class PetListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_pet_list);
+        setContentView(R.layout.activity_adoptions);
 
         petRepository = PetRepository.getInstance();
         layoutPetContainer = findViewById(R.id.layout_pet_container);
 
-        setupFilters();
-        selectFilter(btnAll);
         setupBottomNav();
-        renderPets(petRepository.getAllPets());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -55,55 +51,52 @@ public class PetListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        renderAdoptedPets();
+    }
+
     private void setupBottomNav() {
         MaterialButton navPets = findViewById(R.id.nav_btn_pets);
         MaterialButton navAdoptions = findViewById(R.id.nav_btn_adoptions);
 
-        navPets.setBackgroundTintList(android.content.res.ColorStateList.valueOf(COLOR_ACCENT));
-        navPets.setTextColor(Color.WHITE);
+        navAdoptions.setBackgroundTintList(android.content.res.ColorStateList.valueOf(COLOR_ACCENT));
+        navAdoptions.setTextColor(Color.WHITE);
 
-        navAdoptions.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.TRANSPARENT));
-        navAdoptions.setTextColor(Color.DKGRAY);
+        navPets.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.TRANSPARENT));
+        navPets.setTextColor(Color.DKGRAY);
 
-        navAdoptions.setOnClickListener(v -> {
-            Intent intent = new Intent(PetListActivity.this, AdoptionsActivity.class);
+        navPets.setOnClickListener(v -> {
+            Intent intent = new Intent(AdoptionsActivity.this, PetListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         });
     }
 
-    private void setupFilters() {
-        btnAll = findViewById(R.id.btn_filter_all);
-        btnDogs = findViewById(R.id.btn_filter_dogs);
-        btnCats = findViewById(R.id.btn_filter_cats);
-
-        btnAll.setOnClickListener(v -> {
-            selectFilter(btnAll);
-            renderPets(petRepository.getAllPets());
-        });
-        btnDogs.setOnClickListener(v -> {
-            selectFilter(btnDogs);
-            renderPets(petRepository.getPetsByType(PetType.DOG.type));
-        });
-        btnCats.setOnClickListener(v -> {
-            selectFilter(btnCats);
-            renderPets(petRepository.getPetsByType(PetType.CAT.type));
-        });
-    }
-
-    private void selectFilter(MaterialButton selected) {
-        for (MaterialButton btn : new MaterialButton[]{btnAll, btnDogs, btnCats}) {
-            boolean isSelected = btn == selected;
-            btn.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
-                    isSelected ? COLOR_ACCENT : COLOR_INACTIVE_BG));
-            btn.setTextColor(isSelected ? Color.WHITE : COLOR_ACCENT);
-        }
-    }
-
-    private void renderPets(List<Pet> pets) {
+    private void renderAdoptedPets() {
         layoutPetContainer.removeAllViews();
 
-        for (Pet pet : pets) {
+        List<Pet> allPets = petRepository.getAllPets();
+        List<Pet> adoptedPets = new ArrayList<>();
+        for (Pet p : allPets) {
+            if (p.isAdopted()) {
+                adoptedPets.add(p);
+            }
+        }
+
+        if (adoptedPets.isEmpty()) {
+            TextView emptyText = new TextView(this);
+            emptyText.setText("Aún no tienes mascotas adoptadas.");
+            emptyText.setGravity(Gravity.CENTER);
+            emptyText.setPadding(0, dpToPx(32), 0, 0);
+            emptyText.setTextSize(16f);
+            emptyText.setTextColor(Color.DKGRAY);
+            layoutPetContainer.addView(emptyText);
+            return;
+        }
+
+        for (Pet pet : adoptedPets) {
             MaterialCardView card = new MaterialCardView(this);
             LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -164,15 +157,15 @@ public class PetListActivity extends AppCompatActivity {
             textContainer.addView(breedText);
 
             TextView statusText = new TextView(this);
-            statusText.setText(pet.isAdopted() ? getString(R.string.status_adopted) : getString(R.string.status_available));
+            statusText.setText(getString(R.string.status_adopted));
             statusText.setTextSize(11f);
             statusText.setTypeface(null, Typeface.BOLD);
-            statusText.setTextColor(pet.isAdopted() ? Color.parseColor("#B0B0B0") : Color.parseColor("#388E3C"));
+            statusText.setTextColor(Color.parseColor("#B0B0B0"));
             statusText.setPadding(dpToPx(10), dpToPx(4), dpToPx(10), dpToPx(4));
 
             GradientDrawable statusBg = new GradientDrawable();
             statusBg.setCornerRadius(dpToPx(20));
-            statusBg.setColor(pet.isAdopted() ? Color.parseColor("#F2F2F2") : Color.parseColor("#E7F5EA"));
+            statusBg.setColor(Color.parseColor("#F2F2F2"));
             statusText.setBackground(statusBg);
 
             LinearLayout.LayoutParams statusParams = new LinearLayout.LayoutParams(
@@ -185,7 +178,7 @@ public class PetListActivity extends AppCompatActivity {
             card.addView(content);
 
             card.setOnClickListener(v -> {
-                Intent intent = new Intent(PetListActivity.this, PetDetailActivity.class);
+                Intent intent = new Intent(AdoptionsActivity.this, PetDetailActivity.class);
                 intent.putExtra("pet_id", pet.getId());
                 startActivity(intent);
             });

@@ -80,4 +80,6 @@
             android:paddingBottom="16dp" />
     </ScrollView>
 
+    <include layout="@layout/layout_bottom_nav" />
+
 </LinearLayout>

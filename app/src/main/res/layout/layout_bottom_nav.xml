@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/padding_medium"
+    android:paddingVertical="@dimen/padding_small"
+    android:background="?android:attr/windowBackground"
+    android:elevation="8dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nav_btn_pets"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="8dp"
+        android:textSize="13sp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="21dp"
+        android:text="@string/nav_pets" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nav_btn_adoptions"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:textSize="13sp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="21dp"
+        android:text="@string/nav_adoptions" />
+</LinearLayout>

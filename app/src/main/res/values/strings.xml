@@ -15,4 +15,7 @@
     <string name="confirmation_message">¡Felicitaciones! Tu adopción fue realizada con éxito. Gracias por darle un hogar a una mascota. Pronto nos pondremos en contacto con usted para coordinar la entrega.</string>
     <string name="btn_back_to_pets">Volver al listado</string>
     <string name="confirmation_image_description">Imagen de confirmación</string>
+    <string name="nav_pets">Mascotas</string>
+    <string name="nav_adoptions">Adopciones</string>
+    <string name="title_adoptions">Mis Adopciones</string>
 </resources>
