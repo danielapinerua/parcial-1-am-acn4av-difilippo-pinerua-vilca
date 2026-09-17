@@ -55,7 +55,7 @@ public class PetRepository {
                 "3 años",
                 PetType.DOG.type,
                 "Es fuerte pero muy cariñoso y se lleva muy bien con los niños.",
-                true,
+                false,
                 R.drawable.rocky
         ));
 
@@ -135,5 +135,16 @@ public class PetRepository {
         if (pet != null) {
             pet.setAdopted(true);
         }
+    }
+
+    public void addPet(String name, String breed, String age, String type, String description) {
+        int maxId = 0;
+        for (Pet pet : petList) {
+            if (pet.getId() > maxId) {
+                maxId = pet.getId();
+            }
+        }
+        Pet newPet = new Pet(maxId + 1, name, breed, age, type, description, false, R.mipmap.ic_launcher);
+        petList.add(newPet);
     }
 }

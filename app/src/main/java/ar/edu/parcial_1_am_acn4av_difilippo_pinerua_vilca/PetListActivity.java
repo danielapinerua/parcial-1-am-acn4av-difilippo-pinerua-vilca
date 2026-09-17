@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -48,11 +49,25 @@ public class PetListActivity extends AppCompatActivity {
         setupBottomNav();
         renderPets(petRepository.getAllPets());
 
+        FloatingActionButton fabAddPet = findViewById(R.id.fab_add_pet);
+
+        fabAddPet.setOnClickListener(v -> {
+            startActivity(new Intent(PetListActivity.this, AddPetActivity.class));
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (btnAll != null) {
+            btnAll.performClick();
+        }
     }
 
     private void setupBottomNav() {
