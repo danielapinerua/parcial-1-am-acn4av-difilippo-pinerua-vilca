@@ -3,6 +3,7 @@ package ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -61,7 +62,11 @@ public class PetDetailActivity extends AppCompatActivity {
         });
         contentScroll.setBackground(cardBg);
 
-        petImage.setImageResource(pet.getImageResId());
+        if (pet.getImageUri() != null) {
+            petImage.setImageURI(Uri.parse(pet.getImageUri()));
+        } else {
+            petImage.setImageResource(pet.getImageResId());
+        }
         petName.setText(pet.getName());
         petBreed.setText(pet.getBreed());
         petAge.setText(pet.getAge());

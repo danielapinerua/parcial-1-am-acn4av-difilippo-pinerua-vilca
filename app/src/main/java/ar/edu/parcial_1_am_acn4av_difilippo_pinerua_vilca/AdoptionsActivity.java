@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.net.Uri;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -121,7 +122,11 @@ public class AdoptionsActivity extends AppCompatActivity {
             ImageView image = new ImageView(this);
             LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(dpToPx(76), dpToPx(76));
             image.setLayoutParams(imgParams);
-            image.setImageResource(pet.getImageResId());
+            if (pet.getImageUri() != null) {
+                image.setImageURI(Uri.parse(pet.getImageUri()));
+            } else {
+                image.setImageResource(pet.getImageResId());
+            }
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             GradientDrawable imgBg = new GradientDrawable();

@@ -9,6 +9,7 @@ public class Pet {
     private String description;
     private boolean isAdopted;
     private int imageResId;
+    private String imageUri;
 
     public Pet(int id, String name, String breed, String age, String type, String description, boolean isAdopted, int imageResId) {
         this.id = id;
@@ -19,6 +20,19 @@ public class Pet {
         this.description = description;
         this.isAdopted = isAdopted;
         this.imageResId = imageResId;
+        this.imageUri = null;
+    }
+
+    public Pet(int id, String name, String breed, String age, String type, String description, boolean isAdopted, String imageUri) {
+        this.id = id;
+        this.name = name;
+        this.breed = breed;
+        this.age = age;
+        this.type = type;
+        this.description = description;
+        this.isAdopted = isAdopted;
+        this.imageResId = 0;
+        this.imageUri = imageUri;
     }
 
     public int getId() { return id; }
@@ -29,6 +43,7 @@ public class Pet {
     public String getDescription() { return description; }
     public boolean isAdopted() { return isAdopted; }
     public int getImageResId() { return imageResId; }
+    public String getImageUri() { return imageUri; }
 
     public void setAdopted(boolean adopted) { isAdopted = adopted; }
 }

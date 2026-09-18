@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -148,7 +149,11 @@ public class PetListActivity extends AppCompatActivity {
             ImageView image = new ImageView(this);
             LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(dpToPx(76), dpToPx(76));
             image.setLayoutParams(imgParams);
-            image.setImageResource(pet.getImageResId());
+            if (pet.getImageUri() != null) {
+                image.setImageURI(Uri.parse(pet.getImageUri()));
+            } else {
+                image.setImageResource(pet.getImageResId());
+            }
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             GradientDrawable imgBg = new GradientDrawable();

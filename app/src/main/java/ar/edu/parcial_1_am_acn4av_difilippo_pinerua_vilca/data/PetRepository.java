@@ -137,14 +137,23 @@ public class PetRepository {
         }
     }
 
-    public void addPet(String name, String breed, String age, String type, String description) {
+    public void addPet(String name, String breed, String age, String type, String description, String imageUri) {
         int maxId = 0;
         for (Pet pet : petList) {
             if (pet.getId() > maxId) {
                 maxId = pet.getId();
             }
         }
-        Pet newPet = new Pet(maxId + 1, name, breed, age, type, description, false, R.mipmap.ic_launcher);
+        Pet newPet = new Pet(
+                maxId + 1,
+                name,
+                breed,
+                age,
+                type,
+                description,
+                false,
+                imageUri
+        );
         petList.add(newPet);
     }
 }

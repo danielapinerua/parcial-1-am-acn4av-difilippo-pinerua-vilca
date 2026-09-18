@@ -5,12 +5,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.net.Uri;
+import android.content.Intent;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -21,6 +24,7 @@ import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.constants.PetType;
 import ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca.data.PetRepository;
 
 public class AddPetActivity extends AppCompatActivity {
+    private Uri selectedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class AddPetActivity extends AppCompatActivity {
 
         Button btnBack = findViewById(R.id.btn_back);
         Button btnSave = findViewById(R.id.btn_save_pet);
+        ImageView ivPetPhoto = findViewById(R.id.iv_pet_photo);
+        Button btnSelectPhoto = findViewById(R.id.btn_select_photo);
         TextInputEditText etName = findViewById(R.id.et_name);
         TextInputEditText etBreed = findViewById(R.id.et_breed);
         TextInputEditText etAge = findViewById(R.id.et_age);
@@ -46,6 +52,15 @@ public class AddPetActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
+        btnSelectPhoto.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("image/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            startActivityForResult(intent, 100);
+        });
+
         btnSave.setOnClickListener(v -> {
             String name = etName.getText() != null ? etName.getText().toString().trim() : "";
             String breed = etBreed.getText() != null ? etBreed.getText().toString().trim() : "";
@@ -58,7 +73,14 @@ public class AddPetActivity extends AppCompatActivity {
                 return;
             }
 
-            PetRepository.getInstance().addPet(name, breed, age, type, description);
+            PetRepository.getInstance().addPet(
+                    name,
+                    breed,
+                    age,
+                    type,
+                    description,
+                    selectedImageUri != null ? selectedImageUri.toString() : null
+            );
             Toast.makeText(this, "¡Mascota agregada con éxito!", Toast.LENGTH_SHORT).show();
             finish();
         });
@@ -68,6 +90,29 @@ public class AddPetActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+
+            if (selectedImageUri != null) {
+                try {
+                    getContentResolver().takePersistableUriPermission(
+                            selectedImageUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    );
+                } catch (SecurityException e) {
+                    // El proveedor de imágenes no permite guardar el permiso.
+                }
+            }
+
+            ImageView ivPetPhoto = findViewById(R.id.iv_pet_photo);
+            ivPetPhoto.setImageURI(selectedImageUri);
+        }
     }
 
     @Override
