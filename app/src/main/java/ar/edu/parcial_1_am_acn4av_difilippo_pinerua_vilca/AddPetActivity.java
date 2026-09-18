@@ -1,8 +1,11 @@
 package ar.edu.parcial_1_am_acn4av_difilippo_pinerua_vilca;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -35,12 +38,26 @@ public class AddPetActivity extends AppCompatActivity {
         Button btnBack = findViewById(R.id.btn_back);
         Button btnSave = findViewById(R.id.btn_save_pet);
         ImageView ivPetPhoto = findViewById(R.id.iv_pet_photo);
+        FrameLayout photoFrame = findViewById(R.id.photo_frame);
         Button btnSelectPhoto = findViewById(R.id.btn_select_photo);
         TextInputEditText etName = findViewById(R.id.et_name);
         TextInputEditText etBreed = findViewById(R.id.et_breed);
         TextInputEditText etAge = findViewById(R.id.et_age);
         TextInputEditText etDescription = findViewById(R.id.et_description);
         Spinner spinnerType = findViewById(R.id.spinner_type);
+
+        // Fondo circular lila para el placeholder de la foto
+        GradientDrawable photoBg = new GradientDrawable();
+        photoBg.setShape(GradientDrawable.OVAL);
+        photoBg.setColor(Color.parseColor("#F0EEFF"));
+        photoFrame.setBackground(photoBg);
+
+        // Fondo blanco redondeado con borde para el spinner
+        GradientDrawable spinnerBg = new GradientDrawable();
+        spinnerBg.setColor(Color.WHITE);
+        spinnerBg.setCornerRadius(dpToPx(14));
+        spinnerBg.setStroke(dpToPx(1), Color.parseColor("#DDDDDD"));
+        spinnerType.setBackground(spinnerBg);
 
         List<String> types = new ArrayList<>();
         for (PetType pt : PetType.values()) {
@@ -106,11 +123,21 @@ public class AddPetActivity extends AppCompatActivity {
                             Intent.FLAG_GRANT_READ_URI_PERMISSION
                     );
                 } catch (SecurityException e) {
-                    // El proveedor de imágenes no permite guardar el permiso.
                 }
             }
 
             ImageView ivPetPhoto = findViewById(R.id.iv_pet_photo);
+
+            int sizeInPx = dpToPx(140);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(sizeInPx, sizeInPx);
+            ivPetPhoto.setLayoutParams(params);
+            ivPetPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ivPetPhoto.setClipToOutline(true);
+
+            GradientDrawable circleBg = new GradientDrawable();
+            circleBg.setShape(GradientDrawable.OVAL);
+            ivPetPhoto.setBackground(circleBg);
+
             ivPetPhoto.setImageURI(selectedImageUri);
         }
     }
@@ -132,5 +159,10 @@ public class AddPetActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    private int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 }
